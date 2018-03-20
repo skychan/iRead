@@ -1,0 +1,164 @@
+% Encoding: UTF-8
+
+@Article{周龙飞2017,
+  author    = {周龙飞 and 张霖 and 刘永奎},
+  title     = {云制造调度问题研究综述},
+  journal   = {计算机集成制造系统},
+  year      = {2017},
+  number    = {06},
+  pages     = {1147--1166},
+  abstract  = {为了对云制造调度问题的研究提供参考和指导,对相关研究现状进行了综述。分析了云制造运作模式和相关的调度问题。对云制造调度问题的最新研究进展进行了总结和分析,包括云制造平台中计算资源和制造资源的调度、企业层调度和车间层调度问题。介绍了云制造调度相关的理论和技术,指出了云制造调度问题的复杂性,并展望了未来的研究趋势。},
+  groups    = {云制造},
+  keywords  = {云制造;;调度;;综述},
+  owner     = {sky},
+  review    = {云制造中的相关调度问题是云制造平台的核心问题之一
+
+主要包括：
+1. 平台层
+2. 企业层
+3. 车间层
+
+难点在于：动态性增加，任务需求的不确定性，复杂性增加
+
+任务的需求更为个性化、大规模
+
+服务的任务也不仅仅是任务和资源的匹配，还要考虑柔性、互联性、可组性以及地理位置信息等。（物流以及移动成本）
+
+调度的目标也不是单一的，要考虑多个方面的利益，包括时间、成本、各方利益关系等。
+
+目前的研究，主要集中在计算资源的调度。
+
+知识不仅能够为制造资源和制造能力的虚拟化接入与服务化封装提供技术支持，还能为云服务的高效管理和智能匹配提供决策支持。
+
+平台基于每个用户的个性化需求，为用选择最优的制造服务并生成任务与服务的调度方案。
+
+调度系统：云制造知识库和调度策略库支持，然后根据实时制造任务信息和制造服务信息生成调度方案。
+
+调度方案最后发布到提供方车间执行。
+
+调度是解决云制造平台供需匹配和资源有效利用的核心，不仅要考虑任务的个性化因素（需求、优先级、服务流程等），还要考虑不同制造服务之间的优化选择问题。
+
+
+传统：车间层，时效性高，突发事件和不确定事件相应程度高
+云：远程网络连接导致调度系统难以应对物理资源层发生的动态干扰时间的有效相应。（预测很重要）
+
+任务调度：资源与任务的匹配过程
+
+资源调度：设备和优化资源的过程，考虑实时状态、地理位置、其他制造过程的相关属性（资源可用性、加工时间等）
+
+服务调度：平台中进行服务选择、匹配
+
+实时调度：动态调度的一种特殊情况，需要算法的时间复杂度和网络传输速度都满足调度系统对实时性的要求。
+
+多智能体制造系统调度：分布式人工智能领域研究热点。引入智能体可以增加制造系统的柔性、智能性和可重构性，实现从设计到生产的制造过程和活动，构建企业的智能性制造系统。
+
+智能体中的算法研究非常广泛：进化算法、基于知识学习的方法、实时分布式调度方法、基于智能体的方法等
+
+智能体的形式化实现仍然缺乏行之有效的建模方法，构建的系统体系结构较为复杂，系统的稳定性、智能性、可重构能力不足。传统的调度方法很难解决这种复杂分布式环境下的调度问题，必须寻求更加实时、高效的智能调度求解方法。
+
+车间层的调度研究核心主要是问题模型和求解算法。
+
+云制造调度是实现云制造模式下资源整合和服务按需使用的关键技术之一。
+
+关键技术：制造服务组合理论、供需匹配理论，云制造调度相关理论和支撑技术的研究与实现。
+
+服务组合：云制造服务资源池中找到与大规模制造任务最优的服务来完成相应的任务，同时达到一定的优化目标。
+云制造服务组合更侧重寻找服务与服务之间的关联关系，从而形成制造服务流程。云制造调度更为侧重特定的制造任务寻找具体详细的制造执行方案。
+
+云制造调度的复杂来自于：资源和服务的大规模性和多粒度性、调度目标的复杂性、需求任务的复杂性、物流的参与以及其他动态性和不确定性。
+
+调度目标的复杂性：利益相关方，个性化特点（需要的时刻提交需求），大规模。不同的需求确定不同的调度问题优化目标。
+
+任务之间的耦合关系：面向多任务过程，不仅考虑分解策略和优先级排序问题，还要考虑耦合关系，在比较窄的时间跨度内完成属于同一个平台用户的制造任务。
+
+},
+  timestamp = {2018.03.11},
+}
+
+@Article{余洋2016,
+  author    = {余洋 and 孙林夫 and 马亚花},
+  title     = {面向产业链协同云服务平台的多租户表单定制技术},
+  journal   = {计算机集成制造系统},
+  year      = {2016},
+  number    = {09},
+  pages     = {2235--2244},
+  abstract  = {为了有效解决产业链协同云服务模式下的表单差异化定制问题,分析了租户的表单数据定制和表单界面配置的需求,提出了面向产业链协同云服务平台的多租户表单定制应用方案。该方案利用独立数据架构下企业联盟数据库实例生成算法和共享数据架构下企业联盟数据扩展定制算法实现了表单的数据定制,利用业务表单的界面配置算法实现了表单的界面定制,利用表单执行引擎算法解析配置文档,生成并加载相应的业务表单以供租户使用。以汽车及零部件产业链协同云服务平台零部件协同采购业务为例,验证了应用方案的可靠性与实用性,并能满足不同租户的表单定制需求。},
+  groups    = {多租户},
+  keywords  = {产业链;;云服务平台;;多租户;;表单定制},
+  owner     = {sky},
+  review    = {研究问题：产业链 协同云服务模式下的表单差异化定制问题。
+
+分析：租户表单数据定制以及表单界面配置的需求。
+
+提出了面向产业链xxx表单定制应用方案。
+
+实例生成算法+共享数据架构
+
+汽车及零部件产业协同云服务平台零部件协同采购业务为研究案例，验证了可靠性与实用性。满足不同租户的表单定制需求。
+
+政策相关：德国工业4.0、美国工业互联网、中国制造2025等 发展制造业战略规划
+
+强调定制化与个性化方向转型。 --> 企业分工细化，企业间合作紧密 
+
+竞争： 单个企业 --> 产业链为载体的企业联盟之间
+
+多租户框架是云服务平台的关键特征之一，在该架构下，租户所用的应用实例是在同一套代码的基础上，根据租户需求定制产生的，各租户的业务表对应的数据之间既有共享。
+
+问题：数据表单的差异化以及定制化。},
+  timestamp = {2018.03.18},
+}
+
+@Article{Goncalves2008,
+  author    = {J.F. Gonçalves and J.J.M. Mendes and M.G.C. Resende},
+  title     = {A genetic algorithm for the resource constrained multi-project scheduling problem},
+  journal   = {European Journal of Operational Research},
+  year      = {2008},
+  volume    = {189},
+  number    = {3},
+  pages     = {1171 - 1190},
+  issn      = {0377-2217},
+  groups    = {项目调度},
+  keywords  = {Project management, Metaheuristics, Genetic algorithm, Scheduling},
+  owner     = {sky},
+  timestamp = {2018.03.20},
+}
+
+@Article{Bouleimen2003a,
+  author        = {K. Bouleimen and H. Lecocq},
+  title         = {A new efficient simulated annealing algorithm for the resource-constrained project scheduling problem and its multiple mode version},
+  journal       = {European Journal of Operational Research},
+  year          = {2003},
+  volume        = {149},
+  number        = {2},
+  pages         = {268 - 281},
+  issn          = {0377-2217},
+  note          = {Sequencing and Scheduling},
+  __markedentry = {[sky:6]},
+  groups        = {项目调度},
+  keywords      = {Project scheduling, Resource constraints, Simulated annealing},
+  owner         = {sky},
+  timestamp     = {2018.03.20},
+}
+
+@InProceedings{Confessore2002,
+  author    = {Confessore, Giuseppe and Giordani, Stefano and Rismondo, Silvia},
+  title     = {An auction based approach in decentralized project scheduling},
+  booktitle = {Proceedings of the 8th international workshop on project management and scheduling},
+  year      = {2002},
+  pages     = {110--113},
+  groups    = {项目调度},
+  owner     = {sky},
+  review    = {
+consider decentrialized decisional framework, project is partitioned into different sub-projects. each one managed by a local decision maker.
+},
+  timestamp = {2018.03.20},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
+
+@Comment{jabref-meta: grouping:
+0 AllEntriesGroup:;
+1 StaticGroup:云制造\;2\;1\;\;\;\;;
+1 StaticGroup:多租户\;2\;0\;\;\;\;;
+1 StaticGroup:项目调度\;2\;1\;\;\;\;;
+}
