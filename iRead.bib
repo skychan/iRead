@@ -120,6 +120,11 @@
   groups    = {项目调度},
   keywords  = {Project management, Metaheuristics, Genetic algorithm, Scheduling},
   owner     = {sky},
+  review    = {GA for resource constrained multi-project scheduling problem.
+The chromosome representation of the problem is based on random keys.
+using a heuristic that builds parameterized active schedules based on priorities, delay times, and release dates defined by the GA.
+
+},
   timestamp = {2018.03.20},
 }
 
@@ -133,10 +138,17 @@
   pages         = {268 - 281},
   issn          = {0377-2217},
   note          = {Sequencing and Scheduling},
-  __markedentry = {[sky:6]},
+  __markedentry = {[sky:]},
   groups        = {项目调度},
   keywords      = {Project scheduling, Resource constraints, Simulated annealing},
   owner         = {sky},
+  review        = {new simulated annealing algorithms for the RCPSP and its multiple mode ver. (MRCPSP)
+
+obj function:
+minimisation of the makespan
+
+search was based on an alternated activity and time incrementing process.
+all parameters were set after preliminary statistical experiments done on test instances.},
   timestamp     = {2018.03.20},
 }
 
@@ -156,6 +168,39 @@ proposed a multi agent system model, each agent interacts with the others using 
 
 分布式的决策框架，项目分解成子项目，独立的决策单元MAS，解决有限共享资源的分配冲突问题。},
   timestamp = {2018.03.20},
+}
+
+@Article{Pritsker1969,
+  author        = {A. Alan B. Pritsker and Lawrence J. Waiters and Philip M. Wolfe},
+  title         = {Multiproject Scheduling with Limited Resources: A Zero-One Programming Approach},
+  journal       = {Management Science},
+  year          = {1969},
+  volume        = {16},
+  number        = {1},
+  pages         = {93-108},
+  __markedentry = {[sky:6]},
+  abstract      = { A zero-one (0-1) linear programming formulation of multiproject and job-shop scheduling problems is presented that is more general and computationally tractable than other known formulations. It can accommodate a wide range of real-world situations including multiple resource constraints, due dates, job splitting, resource, substitutability, and concurrency and nonconcurrency of job performance requirements. Three possible objective functions are discussed; minimizing total throughput time for all projects: minimizing the time by which all projects are completed (i.e., minimizing makespan); and minimizing total lateness or lateness penalty for all projects. },
+  eprint        = {https://doi.org/10.1287/mnsc.16.1.93},
+  groups        = {项目调度},
+  owner         = {sky},
+  review        = {考虑问题的变型：
+
+accomodate a wide range of real-world situations, including:
+multiple resource constraints
+due dates
+job splitting
+resource substitutability
+concurrency and non-concurrency of job performance requirements.
+
+考虑3 个主要的目标函数：
+minimizing total throughput time for all projects
+minimizing the time by which all projects are completed (makespan)
+minimizing the total lateness or lateness penalty for all projects
+
+Theoretically, total job-splitting capacity could be accomplished by treating each job as dij subjobs, and by imposing appropriate sequencing constraints on these subjobs.
+Pragmatically, however, job-splitting capability would seldom be fully exercised because of setup cost, the desirability of maintaining job continuity, etc.
+},
+  timestamp     = {2018.03.20},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
