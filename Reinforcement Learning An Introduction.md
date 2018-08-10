@@ -10,7 +10,6 @@ But value function methods, allow individual states to be evaluted.
 
 In the end, both evolutionary and value function methods search the space of policies, but learning a value function takes advantage of information available during the course of play.
 
-<<<<<<< HEAD
 ## Finite Markov Decision Processes
 
 包括 evaluative feedback, associative aspect -- choosing different actions in different situations.
@@ -69,7 +68,6 @@ DP 的最大问题是，包含了需要需要整个状态集合调整的操作�
 
 是一种原地迭代的动态规划算法。并不是按照系统的状态清除来组织的。可以按照任意的方法来更新状态的价值。
 
-=======
 
 ## Associative search
 
@@ -80,4 +78,3 @@ DP 的最大问题是，包含了需要需要整个状态集合调整的操作�
 更像完全体的 RL：行为不光会影响下一个环境（next situation），还会影响下一次的收益（next reward）
 
 If actions are allowed to a↵ect the next situation as well as the reward, then we have the full reinforcement learning problem.
->>>>>>> 63cf003f3f1dee802cf39bb3154a34bae4a8b260
