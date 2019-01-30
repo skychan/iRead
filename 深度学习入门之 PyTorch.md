@@ -9,6 +9,9 @@
         - [1.1.4. `torch.optim` 优化](#114-torchoptim-优化)
         - [1.1.5. 模型的保存和加载](#115-模型的保存和加载)
     - [1.2. 线性模型](#12-线性模型)
+        - [1.2.1. 线性回归](#121-线性回归)
+        - [1.2.2. 多项式回归](#122-多项式回归)
+    - [1.3. 分类问题](#13-分类问题)
 
 <!-- /TOC -->
 ## 1. 多层全连接神经网络
@@ -139,3 +142,29 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
 
 
 ### 1.2. 线性模型
+
+#### 1.2.1. 线性回归
+
+- `nn.Linear(x, y)`：定义线性模型的输入和输出维度
+- `nn.MSELoss()`：定义均方差损失函数
+- `optim.SGD(model.parameters(), lr=1e-3)`：定义梯度下降进行优化
+
+每一步的计算可以这样：
+```python
+out = model(inputs)             # 定义输出
+loss = criterion(out, target)   # 定义损失函数
+
+optimizer.zero_grad()           # 每次反向传播之前需要归零梯度，不然梯度会累加，造成结果不收敛
+loss.backward()
+optimizer.step()
+```
+
+`model.eval()` 将模型变成测试模式，Dropout 和 BatchNormalization 等操作在训练和测试时候是不一样的。
+
+#### 1.2.2. 多项式回归
+
+- `torch.cat()` 拼接 Tensor
+
+定义多项式回归模型，只需要使用`nn.Linear(x, y)` 时，令`x>1`即可。
+
+### 1.3. 分类问题
