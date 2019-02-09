@@ -17,7 +17,10 @@
         - [1.4.1. 激活函数](#141-激活函数)
         - [1.4.2. 模型的表示能力和容量](#142-模型的表示能力和容量)
 - [2. 卷积神经网络](#2-卷积神经网络)
-    - [卷积模块](#卷积模块)
+    - [2.1. 卷积模块](#21-卷积模块)
+    - [2.2. 一些操作](#22-一些操作)
+    - [2.3. 经典案例](#23-经典案例)
+    - [2.4. 图像增强的方法](#24-图像增强的方法)
 
 <!-- /TOC -->
 ## 1. 多层全连接神经网络
@@ -31,6 +34,22 @@ numpy_b = b.numpy()
 
 torch_e = torch.from_numpy(e)
 ```
+
+1. 数据类型
+- `torch.FloatTensor`
+- `torch.IntTensor`
+- `torch.rand/torch.randn`
+- `torch.arange`
+- `torch.zeros`
+
+2. 计算
+- `torch.abs`
+- `torch.add`
+- `torch.clamp`：对输入参数按照自定义的范围裁剪，最后将结果输出。
+- `torch.div`
+- `torch.mul`
+- `torch.pow`
+- `torch.mm`：矩阵相乘
 
 #### 1.1.1. `Variable` 变量
 
@@ -318,7 +337,7 @@ ReLU 是 $w_1=b_1=0$的特殊形式，maxout 既有ReLU 的特点，又避免了
 
 ## 2. 卷积神经网络
 
-### 卷积模块
+### 2.1. 卷积模块
 
 1. 卷积层
 
@@ -343,3 +362,69 @@ ReLU 是 $w_1=b_1=0$的特殊形式，maxout 既有ReLU 的特点，又避免了
 主要参数：
 - return_indices：是否返回最大值的下标
 - ceil_mode：使用一些放歌代替层结构
+
+
+### 2.2. 一些操作
+
+1. 提取层结构
+
+`nn.Module` 的 `children()` 方法，返回下一级模块的迭代器。用于提取前面两层：
+
+```python
+new_model = nn.Sequential(*list(model.children())[:2])
+```
+
+提取模型中所有的卷积层：
+
+```python
+for layer in model.named_modules():
+    if isinstance(layer[1], nn.Conv2d):
+        conv_model.add_module(layer[0], layer[1])
+```
+
+2. 提取参数及自定义初始化
+
+重做权重初始化：
+
+```python
+for m in model.modules():
+    if isinstance(m, nn.Conv2d):
+        init.normal(m.weight.data)
+        init.xavier_normal(m.weight.data)
+        init.kaiming_normal(m.weight.data)
+        m.bias.data.fill_(0)
+    elif isinstance(m, nn.Linear):
+        m.weight.data.normal_()
+```
+
+### 2.3. 经典案例
+
+1. LeNet：开山之作，7层
+2. AlexNet：2012 冠军
+3. VGGNet：2014 亚军，使用了更小的滤波器，增加了网络深度。使用很多小的滤波器的感受野和一个大的相同，并且能减少参数。
+4. GoogleNet(InceptionNet)：2014 冠军。使用了创新的 Inception 模块。
+    - 设计了局部的网络拓扑结构，然后将这些模块堆叠在一起，形成一个抽象的网络。运用几个并行的滤波器对输入进行卷积和池化。
+    - 参数太多，计算复杂
+5. ResNet：2015 冠军，微软。残差模型可以训练152层的模型。在不断加深网络的时候，会出现一个 Degradation，也就是准确率会先上升，然后达到饱和，再下降。这个不是由于过拟合引起的。
+    - 假设一个比较浅的网络达到了饱和准确率，那么在后面加上几个恒等映射层，误差不会增加。即，直接将前一层输出传到后面。
+
+
+此外，`torchvision.model`里面已经定义了大部分的网络结构，并且都有预先训练好的参数，不需要重复造轮子。
+
+### 2.4. 图像增强的方法
+
+- 光照太弱
+- 姿势不同
+- 遮挡
+
+`torchvision.transforms` 图像增强的办法：
+- `Scale` 放缩
+- `CenterCrop` 正中心给定大小的裁剪
+- `RandomCrop` 给定大小的随机裁剪
+- `RandomHorizontalFlip` 0.5 几率的水平翻转
+- `RandomSizedCrop` 先对图像进行随机尺寸裁剪，然后对裁剪的图片进行一个随机比例的缩放
+- `Pad` 边界填充
+
+
+
+
