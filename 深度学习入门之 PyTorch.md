@@ -21,10 +21,14 @@
     - [2.2. 一些操作](#22-一些操作)
     - [2.3. 经典案例](#23-经典案例)
     - [2.4. 图像增强的方法](#24-图像增强的方法)
-- [循环神经网络](#循环神经网络)
-    - [LSTM](#lstm)
-    - [GRU](#gru)
-    - [收敛性问题](#收敛性问题)
+- [3. 循环神经网络](#3-循环神经网络)
+    - [3.1. LSTM](#31-lstm)
+    - [3.2. GRU](#32-gru)
+    - [3.3. 收敛性问题](#33-收敛性问题)
+    - [3.4. PyTorch 的循环网络相关模块](#34-pytorch-的循环网络相关模块)
+    - [应用场景](#应用场景)
+        - [图片分类](#图片分类)
+        - [自然语言处理](#自然语言处理)
 
 <!-- /TOC -->
 ## 1. 多层全连接神经网络
@@ -429,22 +433,90 @@ for m in model.modules():
 - `RandomSizedCrop` 先对图像进行随机尺寸裁剪，然后对裁剪的图片进行一个随机比例的缩放
 - `Pad` 边界填充
 
-## 循环神经网络
+## 3. 循环神经网络
 
 两种使用最多的变种：LSTM，GRU
 
-### LSTM
+### 3.1. LSTM
 
 由3个门控制：
 - 输入门
 - 输出门
 - **遗忘门**：决定之前的哪些记忆将被保留，哪些记忆将被去掉。能够自己学习保留多少以前的记忆，而不需要认为干扰，网络就能自主学习。
 
-### GRU
+### 3.2. GRU
 
 Gated Recurrent Unit
 
 将遗忘门和输入门合成了一个“更新门”，同时，网络不再额外给出记忆状态 $C_t$，而是将输出结果$h_t$作为记忆状态不断向后循环传递，网络的输入和输出变得简单。
 
-### 收敛性问题
+### 3.3. 收敛性问题
 
+若写一个简单的 LSTM 网络去训练数据，你会发现 loss 并不会按照想象的方式下降，如果运气好的话，能够得到一直下降的 loss，但是大多数情况下 loss 是乱跳的。这是由于RNN的误差曲面粗糙不平造成的，就算使用较小的学习速率也是不行的。
+
+权重在网络中循环的结构里面会不断地被重复利用，那么梯度的微小变化都会在经过循环结构之后被放大。正是因为网络在训练的过程中梯度的变化范围大，所以设置一个固定的学习速率不能有效收敛。同时梯度的变化并没有规律，所以设置衰减的学习率也不能满足条件。
+
+**解决办法**：梯度裁剪（gradient clipping）,将大的梯度裁掉，这样就能在一定程度上避免收敛不好的问题。现在还有很多别的办法解决这个问题。
+
+### 3.4. PyTorch 的循环网络相关模块
+
+![RNN 结构](./figures/PyTorch/RNN.png)
+
+调用 `nn.RNN()`即可，相关参数：
+
+|参数|默认|含义|
+|:--|:--|:--|
+|input_size||表示输入 $x_t$ 的特征维度|
+|hidden_size||$h_t$ 的特征维度|
+|num_layers||网络层数|
+|nonlinearity|tanh|非线性激活函数，可以是 relu |
+|bias|True|是否偏置|
+|batch_first|False|网络输入的维度顺序，（seq, batch, feature） True -> (batch, seq, feature)|
+|dropout||会在除了最后一层之外的其他输出层上加dropout层|
+|bidirectional|False|是否双向循环神经网络|
+
+网络：
+1. 序列输入 $x_t$ （长度，批量，特征维度）和记忆输入 $h_0$ （layers*direction, 批量，输出维度）
+2. 输出 output （长度，批量，输出维度*方向）和 记忆单元 $h_n$
+
+
+一个输入维度20，输出维度50的2层单向网络：
+
+    basic_rnn = nn.RNN(input_size=20, hidden_size=50, num_layers=2)
+
+`nn.LSTM()` 和 `nn.RNN()`类似，只是因为 LSTM 比标准 RNN 多了3个线性变换，并且将多的3个线性变换的权重拼接在一起，所以参数一共是rnn的4倍，偏置也是。换句话说，LSTM 做了4个类似标准RNN的运算，所以参数个数是4倍。
+
+而且，LSTM 的输入也不再只有输入序列和隐藏状态，还有 $C_0$。
+
+`nn.GRU()` 也类似，只不过是3倍。
+
+### 应用场景
+
+#### 图片分类
+
+需要将图片数据转化为一个序列数据，比如手写数字图片大小是 $28\times 28$，那么可以将图片看作是长度为28的序列，序列中的每个元素的特征维度是28，这样，图片就变成了一个序列。同时，图片从左往右输入网络的时候，网络的记忆性可以同时和后面的部分结合来预测结果。
+
+```python
+class RNN(nn.Module):
+    def __init__(self, in_dim, hid_dim, n_layer, n_class):
+        super().__init__()
+        self.n_layer = n_layer
+        self.hid_dim = hid_dim
+        self.lstm = nn.LSTM(in_dim, hid_dim, n_layer, batch_first=True)
+        self.classifier = nn.Linear(hid_dim, n_class)
+    
+    def forward(self, x):
+        # h0 = Variable(torch.zeros(self.n_layer, x.size(1), self.hid_dim)).cuda()
+        # c0 = Variable(torch.zeros(self.n_layer, x.size(1), self.hid_dim)).cuda()
+
+        out, _ = self.lstm(x)
+        out = out[:,-1,:] # 输出是一个序列，用最后一个作为结果
+        out = self.classifier(out)
+        return out
+```
+
+但是，循环神经网络不适合处理图片类型的数据。
+1. 图片并没有很强的序列关系。因为图片的观看顺序不影响图片信息的解读。
+2. 循环圣经网络传递的时候，必须前面一个数据计算结束才能进行后面一个数据的计算，这对于大图片是很慢的。而CNN可以并行。
+
+#### 自然语言处理
