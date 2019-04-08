@@ -15,12 +15,12 @@
 
 - [ ] Multi-armed Bandits
     - [x] A $k$-armed Bandit Problem
-    - [ ] Action-value Methods
-    - [ ] The 10-armed Testbed
-    - [ ] Incremental Implementation
-    - [ ] Tracking a Nonstationary Problem
-    - [ ] Optimisitic Initial Values
-    - [ ] Upper-Confidence-Bound Action Selection
+    - [x] Action-value Methods
+    - [x] The 10-armed Testbed
+    - [x] Incremental Implementation
+    - [x] Tracking a Nonstationary Problem
+    - [x] Optimisitic Initial Values
+    - [x] Upper-Confidence-Bound Action Selection
     - [ ] Gradient Bandit Algorithms
     - [ ] Associative Search (Contexual Bandits)
     - [ ] Summary
