@@ -1,12 +1,12 @@
-# Introduction
+# Ch 1. Introduction
 <!-- TOC -->
 
 - [1. Reinforcement Learning](#1-reinforcement-learning)
 - [2. Elements of Reinforcement Learning](#2-elements-of-reinforcement-learning)
-- [Limitations and Scope](#limitations-and-scope)
-- [An Extended Example: Tic-Tac-Toe](#an-extended-example-tic-tac-toe)
-- [Summary](#summary)
-- [Early History of Reinforcement Learning](#early-history-of-reinforcement-learning)
+- [3. Limitations and Scope](#3-limitations-and-scope)
+- [4. An Extended Example: Tic-Tac-Toe](#4-an-extended-example-tic-tac-toe)
+- [5. Summary](#5-summary)
+- [6. Early History of Reinforcement Learning](#6-early-history-of-reinforcement-learning)
 
 <!-- /TOC -->
 ## 1. Reinforcement Learning
@@ -37,7 +37,7 @@ planning: any way of deciding on a course of action by considering possible futu
 
 > Modern RL spans the spectrum from low-level, trial-and-error learning to high-level, deliberative planning.
 
-## Limitations and Scope
+## 3. Limitations and Scope
 
 - RL relies heavily on the concept of state--as input to the policy and value function, and as both imput to and output from the model.
 
@@ -46,7 +46,7 @@ State: as a signal convying to the agent some sense of "how the environment is" 
 
 Evolutionary methods have advantages on problems in which the learning agent cannot sense the complete state of its environment.
 
-## An Extended Example: Tic-Tac-Toe
+## 4. An Extended Example: Tic-Tac-Toe
 
 If we let $S_t$ denote the state before the greedy move, and $S_{t+1}$ the state after the move, then the update to the estimated value of $S_t$, denoted $V(S_t)$ can be written as
 
@@ -62,7 +62,7 @@ Key features of RL:
 
 the simple RL player would learn to set up multi-move traps for a shortsighted opponent.
 
-## Summary
+## 5. Summary
 
 RL is a computational approach to understanding and automating goal-directed learning and decision making.
 
@@ -70,7 +70,7 @@ RL is a computational approach to understanding and automating goal-directed lea
 
 RL uses the formal framework of MDP to define the interaction between a learning agent and its environment in terms of states, actions and rewards.
 
-## Early History of Reinforcement Learning
+## 6. Early History of Reinforcement Learning
 
 RL 的研究历史主要包括两条主线：
 1. 关于　trial-and-error

@@ -14,6 +14,16 @@
 ## Tabular Solution Methods
 
 - [ ] Multi-armed Bandits
+    - [x] A $k$-armed Bandit Problem
+    - [ ] Action-value Methods
+    - [ ] The 10-armed Testbed
+    - [ ] Incremental Implementation
+    - [ ] Tracking a Nonstationary Problem
+    - [ ] Optimisitic Initial Values
+    - [ ] Upper-Confidence-Bound Action Selection
+    - [ ] Gradient Bandit Algorithms
+    - [ ] Associative Search (Contexual Bandits)
+    - [ ] Summary
 - [ ] Finite Markov Decision Process
 - ...
 
