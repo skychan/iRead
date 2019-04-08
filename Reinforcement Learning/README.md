@@ -22,7 +22,7 @@
     - [x] Optimisitic Initial Values
     - [x] Upper-Confidence-Bound Action Selection
     - [ ] Gradient Bandit Algorithms
-    - [ ] Associative Search (Contexual Bandits)
+    - [ ] Associative Search (Contextual Bandits)
     - [ ] Summary
 - [ ] Finite Markov Decision Process
 - ...

@@ -12,8 +12,9 @@ Nonassociative setting: one that does not involve learning to act in more than o
 - [4. Incremental Implementation](#4-incremental-implementation)
 - [5. Tracking a Nonstationary Problem](#5-tracking-a-nonstationary-problem)
 - [6. Optimistic Initial Values](#6-optimistic-initial-values)
-- [Upper-Confidence-Bound(UCB) Action Selection](#upper-confidence-bounducb-action-selection)
-- [Gradient Bandit Algorithm](#gradient-bandit-algorithm)
+- [7. Upper-Confidence-Bound(UCB) Action Selection](#7-upper-confidence-bounducb-action-selection)
+- [8. Gradient Bandit Algorithm](#8-gradient-bandit-algorithm)
+- [Associative Search (Contextual Bandits)](#associative-search-contextual-bandits)
 
 <!-- /TOC -->
 ## 1. A $k$-armed Bandit Problem
@@ -107,6 +108,11 @@ $$
 这个式子也称为指数较新加权平均（exponential recency-weighted average）。
 如果　$\alpha=1$ 那么，这个权重会给最后一个收益。
 
+可以证明：
+
+$$
+(1-\alpha)^n + \sum_{i=1}^n \alpha(1-\alpha)^{n-i} = 1
+$$
 变动的步长参数需要满足：
 
 $$
@@ -142,7 +148,7 @@ $$
 \end{cases}
 $$
 
-## Upper-Confidence-Bound(UCB) Action Selection
+## 7. Upper-Confidence-Bound(UCB) Action Selection
 
 虽然 $\epsilon$-greedy 方法可以尝试exploration，但是对于各个行为的选择没有偏好。比较理性的方法是尝试更有潜力的行为。
 
@@ -162,6 +168,41 @@ $$
 
 因此，在更先进的方法中，这个UCB的想法常常会不切实际。
 
-## Gradient Bandit Algorithm
+## 8. Gradient Bandit Algorithm
 
+之前讲到的都是基于对行为价值进行估计的方法，但这不是唯一的选择，比如:**考虑基于量化偏好的行为选择。**
+
+偏好值记为 $H_t(a)$，和收益相关的解释无关。只是行为的相对偏好。
+
+$$
+Pr\{A_t=a\} \doteq \frac{e^{H_t(a)}}{\sum_{b=1}^k e^{H_t(b)}} \doteq \pi_t(a) \quad \forall a
+$$
+
+其中，$\forall a, H_1(a)=0$
+
+$H_t(a)$ 的更新：
+
+$$
+H_{t+1}(a) = H_t(a) + \alpha (R_t - \bar R_t)(\mathbb{1}_{a=A_t}-\pi_t(a))
+$$
+
+可以看出，如果在$t$步选择了的行为$A_t$ 的收益高于基线，那么后期会增加被选的可能，并且削弱其他的非$A_t$ 行为。
+
+$\bar R_t$ 是到当前步的收益平均值，可以作为基线。不使用基线的情况可令 $\bar R_t = 0$，但这样做效果会变得很差。
+
+可以证明：gradient bandit algorithm 的期望更新梯度等于收益梯度。并且，这是一个随机梯度上升。并且，baseline 的选择并不影响随机梯度的特性。
+
+选择平均值作为基线不一定能获得最佳的效果，但是非常简单，别且实践中的效果也不错。
+
+## Associative Search (Contextual Bandits)
+
+目前，所涉及的问题仅仅是非关联（nonassociative）的任务，即，不同的行为不需要关联不同的环境情形。
+
+比如对于 $k$-armed bandit 问题，每一步的概率都会变。
+
+现在假设，你可以知道某些暗示，比如颜色和胜率的关系，那么你可以将之关联。
+
+关联搜索任务：包含
+1. trial-and-error 学习以搜索最佳的行为
+2. 关联这些行为与最适合的执行情形。
 
