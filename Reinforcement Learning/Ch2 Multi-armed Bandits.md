@@ -14,7 +14,7 @@ Nonassociative setting: one that does not involve learning to act in more than o
 - [6. Optimistic Initial Values](#6-optimistic-initial-values)
 - [7. Upper-Confidence-Bound(UCB) Action Selection](#7-upper-confidence-bounducb-action-selection)
 - [8. Gradient Bandit Algorithm](#8-gradient-bandit-algorithm)
-- [Associative Search (Contextual Bandits)](#associative-search-contextual-bandits)
+- [9. Associative Search (Contextual Bandits)](#9-associative-search-contextual-bandits)
 
 <!-- /TOC -->
 ## 1. A $k$-armed Bandit Problem
@@ -183,7 +183,7 @@ $$
 $H_t(a)$ 的更新：
 
 $$
-H_{t+1}(a) = H_t(a) + \alpha (R_t - \bar R_t)(\mathbb{1}_{a=A_t}-\pi_t(a))
+H_{t+1}(a) \doteq H_t(a) + \alpha (R_t - \bar R_t)(\mathbb{1}_{a=A_t}-\pi_t(a))
 $$
 
 可以看出，如果在$t$步选择了的行为$A_t$ 的收益高于基线，那么后期会增加被选的可能，并且削弱其他的非$A_t$ 行为。
@@ -194,7 +194,70 @@ $\bar R_t$ 是到当前步的收益平均值，可以作为基线。不使用基
 
 选择平均值作为基线不一定能获得最佳的效果，但是非常简单，别且实践中的效果也不错。
 
-## Associative Search (Contextual Bandits)
+> 关于 Bandit Gradient Algorithm 的证明
+
+再完却的梯度提升方法中，量化偏好的更新是
+
+$$
+H_{t+1}(a) = H_t(a) + \alpha \frac{\partial\mathbb{E}[R_t]}{\partial H_t(a)}
+$$
+
+其中，
+
+$$
+\mathbb{E}[R_t] = \sum_x \pi_t(x)q_*(x)
+$$
+
+那么有
+
+$$
+\begin{aligned}
+\frac{\partial\mathbb{E}[R_t]}{\partial H_t(a)} &= \frac{\partial}{\partial H_t(a)}\left[\sum_x \pi_t(x)q_*(x) \right] \\
+&= \sum_x q_*(x) \frac{\partial \pi_t(x)}{\partial H_t(a)} \\
+&= \sum_x \left(q_*(x) - B_t\right) \frac{\partial \pi_t(x)}{\partial H_t(a)}
+\end{aligned}
+$$
+
+其中，$B_t$ 是与 $x$ 无关的基线值。由于各个方向上的梯度值之和为 $0$，即 $\sum_x \frac{\partial \pi_t(x)}{\partial H_t(a)} = 0$，因此基线值的插入并不影响等式。
+
+$$
+\begin{aligned}
+\frac{\partial\mathbb{E}[R_t]}{\partial H_t(a)} &=\sum_x \pi_t(x)\left(q_*(x) - B_t\right) \frac{\partial \pi_t(x)}{\partial H_t(a)}/\pi_t(x) \\
+&= \mathbb{E}\left[(q_*(A_t) - B_t) \frac{\partial \pi_t(A_t)}{\partial H_t(A_t)}/\pi_t(A_t) \right] \\
+&= \mathbb{E}\left[(R_t - \bar R_t) \frac{\partial \pi_t(A_t)}{\partial H_t(a)}/\pi_t(A_t) \right] \\
+\end{aligned}
+$$
+
+其中，基线值的选取比较随机，并且由于 $\mathbb{E}[R_t|A_t] = q_*(A_t)$，替代进入也成立。此外，根据除法倒数定理：
+
+$$
+\begin{aligned}
+\frac{\partial \pi_t(x)}{\partial H_t(a)} &= \frac{\partial}{\partial H_t(a)} \left[ \frac{e^{H_t(x)}}{\sum_{y=1}^k e^{H_t(y)}}  \right] \\
+&= \frac{ \frac{\partial e^{H_t(x)}}{\partial e^{H_t(a)}}\sum_{y=1}^k e^{H_t(y)} - e^{H_t(x)} \frac{\partial \sum_{y=1}^{k} e^{H_t(y)}}{\partial H_t(a)} }{ \left( \sum_{y=1}^k e^{H_t(y)} \right)^2 } \\
+&= \frac{ \mathbb{1}_{a=x} e^{H_t(x)}\sum_{y=1}^k e^{H_t(y)} - e^{H_t(x)}  e^{H_t(a)}} { \left( \sum_{y=1}^k e^{H_t(y)} \right)^2 } \\
+&= \frac{ \mathbb{1}_{a=x} e^{H_t(x)} } {  \sum_{y=1}^k e^{H_t(y)}} - \frac{e^{H_t(x)}  e^{H_t(a)}} { \left( \sum_{y=1}^k e^{H_t(y)} \right)^2 }\\
+&= \mathbb{1}_{a=x}\pi_t(x) - \pi_t(x)\pi_t(a) \\
+&= \pi_t(x)\left( \mathbb{1}_{a=x} - \pi_t(a) \right)
+\end{aligned}
+$$
+
+代入上式期望可得
+
+$$
+\begin{aligned}
+\frac{\partial\mathbb{E}[R_t]}{\partial H_t(a)} &= \mathbb{E}\left[(R_t-\bar R_t) \pi_t(A_t) (\mathbb{1}_{a=A_t} - \pi_t(a)) / \pi_t(A_t)\right] \\
+&= \mathbb{E}\left[(R_t-\bar R_t) (\mathbb{1}_{a=A_t} - \pi_t(a)) \right] \\
+&= (R_t-\bar R_t) (\mathbb{1}_{a=A_t} - \pi_t(a))
+\end{aligned}
+$$
+
+由此得证：
+
+$$
+H_{t+1}(a) = H_t(a) + \alpha (R_t \bar R_t) (\mathbb{1}_{a=A_t} - \pi_t(a))
+$$
+
+## 9. Associative Search (Contextual Bandits)
 
 目前，所涉及的问题仅仅是非关联（nonassociative）的任务，即，不同的行为不需要关联不同的环境情形。
 
