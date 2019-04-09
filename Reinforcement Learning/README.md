@@ -24,16 +24,24 @@
     - [x] Gradient Bandit Algorithms
     - [x] Associative Search (Contextual Bandits)
     - [x] Summary
-- [ ] Finite Markov Decision Process
-    - [ ] The Agent-Environment Interface
-    - [ ] Goals and Rewards
-    - [ ] Returns and Episodes
-    - [ ] Unified Notation for Episodic and Continuing Tasks
-    - [ ] Policies and Value Functions
-    - [ ] Optimal Policies and Optimal 
-    - [ ] Optimality and Approxmiation
-    - [ ] Summary
+- [x] Finite Markov Decision Process
+    - [x] The Agent-Environment Interface
+    - [x] Goals and Rewards
+    - [x] Returns and Episodes
+    - [x] Unified Notation for Episodic and Continuing Tasks
+    - [x] Policies and Value Functions
+    - [x] Optimal Policies and Optimal 
+    - [x] Optimality and Approxmiation
+    - [x] Summary
 - [ ] Dynamic Programming
+    - [ ] Policy Evaluation(Prediction)
+    - [ ] Policy Improvement
+    - [ ] Policy Iteration
+    - [ ] Value Iteration
+    - [ ] Asynchronous Dynamic Programming
+    - [ ] Genralized Policy Iteration
+    - [ ] Efficiency of Dynamic Programming
+    - [ ] Summary
 - [ ] Monte Carlo Methods
 - [ ] Temporal-Difference Learning
 - [ ] $n$-step Boostrapping
