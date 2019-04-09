@@ -13,7 +13,7 @@
 
 ## Tabular Solution Methods
 
-- [ ] Multi-armed Bandits
+- [x] Multi-armed Bandits
     - [x] A $k$-armed Bandit Problem
     - [x] Action-value Methods
     - [x] The 10-armed Testbed
@@ -21,15 +21,28 @@
     - [x] Tracking a Nonstationary Problem
     - [x] Optimisitic Initial Values
     - [x] Upper-Confidence-Bound Action Selection
-    - [ ] Gradient Bandit Algorithms
-    - [ ] Associative Search (Contextual Bandits)
-    - [ ] Summary
+    - [x] Gradient Bandit Algorithms
+    - [x] Associative Search (Contextual Bandits)
+    - [x] Summary
 - [ ] Finite Markov Decision Process
-- ...
+    - [ ] The Agent-Environment Interface
+    - [ ] Goals and Rewards
+    - [ ] Returns and Episodes
+    - [ ] Unified Notation for Episodic and Continuing Tasks
+    - [ ] Policies and Value Functions
+    - [ ] Optimal Policies and Optimal 
+    - [ ] Optimality and Approxmiation
+    - [ ] Summary
+- [ ] Dynamic Programming
+- [ ] Monte Carlo Methods
+- [ ] Temporal-Difference Learning
+- [ ] $n$-step Boostrapping
+- [ ] planning and Learning with Tabular Methods
 
 ## Approxmiate Solution Methods
 
 - [ ] On-policy Prediction with Approximation
+- [ ] On-policy Control with Approximation
 - ...
 
 ## Looking Deeper
