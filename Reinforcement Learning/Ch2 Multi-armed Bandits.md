@@ -6,7 +6,7 @@ Nonassociative setting: one that does not involve learning to act in more than o
 
 <!-- TOC -->
 
-- [1. A $`k`$-armed Bandit Problem](#1-a-k-armed-bandit-problem)
+- [1. A $k$-armed Bandit Problem](#1-a-k-armed-bandit-problem)
 - [2. Action-value Methods](#2-action-value-methods)
 - [3. The 10-armed Testbed](#3-the-10-armed-testbed)
 - [4. Incremental Implementation](#4-incremental-implementation)
@@ -17,17 +17,17 @@ Nonassociative setting: one that does not involve learning to act in more than o
 - [9. Associative Search (Contextual Bandits)](#9-associative-search-contextual-bandits)
 
 <!-- /TOC -->
-## 1. A $`k`$-armed Bandit Problem
+## 1. A $k$-armed Bandit Problem
 
-重复地在 $`k`$ 个不同的选项或者行为中进行选择，每次选择后，从一个固定的概率分布中收获一个数字的奖励。
+重复地在 $k$ 个不同的选项或者行为中进行选择，每次选择后，从一个固定的概率分布中收获一个数字的奖励。
 
 你的目标是，最大化一定时段内所有收益和的期望。
 
 We deonte action selected on time step $t$ as $A_t$， and the corresponding reward as $R_t$, the value of an arbitrary action $a$ denoted $q_*(a)$ as 
 
-`
+$$
 q_*(a) \doteq \mathbb{E}[R_t|A_t = a]
-`
+$$
 
 我们假设，你不知道每一个行为的确切价值，但你可能有个估计，记为　$Q_t(a)$。
 
