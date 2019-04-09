@@ -23,7 +23,7 @@ Nonassociative setting: one that does not involve learning to act in more than o
 
 你的目标是，最大化一定时段内所有收益和的期望。
 
-We deonte action selected on time step $t$ as $A_t$， and the corresponding reward as $R_t$, the value of an arbitrary action $a$ denoted $q_*(a)$ as 
+We deonte action selected on time step $t$ as $A_t$， and the corresponding reward as $R\_{t}$, the value of an arbitrary action $a$ denoted $q\_*(a)$ as 
 
 $$
 q_*(a) \doteq \mathbb{E}[R_t|A_t = a]
