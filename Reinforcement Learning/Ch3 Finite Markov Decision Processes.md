@@ -35,9 +35,9 @@ MDP 是一个从交互过程中求解的直观框架
 
 MDP and agent together thereby give rise to a sequence or *trajectory* like:
 
-$$
+```math
 S_0,A_0,R_1,S_1,A_1,R_2,\dots
-$$
+```
 
 > 大写字母都是随机变量，相应的小写字母是对应的确切值
 
