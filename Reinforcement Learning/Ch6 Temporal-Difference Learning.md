@@ -17,10 +17,10 @@ TD Learning: 结合了 Monte Carlo 思想和 Dynmaic Programming 的思想。
 - [2. Advantages of TD Prediction Methods](#2-advantages-of-td-prediction-methods)
 - [3. Optimality of TD(0)](#3-optimality-of-td0)
 - [4. Sarsa: On-policy TD Control](#4-sarsa-on-policy-td-control)
-- [Q-learning: Off-policy TD Control](#q-learning-off-policy-td-control)
-- [Expected Sarsa](#expected-sarsa)
-- [Maximization Bias and Double Learning](#maximization-bias-and-double-learning)
-- [Games, Afterstates, and Other Special Cases](#games-afterstates-and-other-special-cases)
+- [5. Q-learning: Off-policy TD Control](#5-q-learning-off-policy-td-control)
+- [6. Expected Sarsa](#6-expected-sarsa)
+- [7. Maximization Bias and Double Learning](#7-maximization-bias-and-double-learning)
+- [8. Games, Afterstates, and Other Special Cases](#8-games-afterstates-and-other-special-cases)
 
 <!-- /TOC -->
 
@@ -29,6 +29,7 @@ TD Learning: 结合了 Monte Carlo 思想和 Dynmaic Programming 的思想。
 Monte Carlo 方法：每次要等到访问的状态已知后才输出。
 
 Constant-$\alpha$ MC:
+
 $$
 V(S_t) \gets V(S_t) + \alpha\left[G_t -V(S_t) \right]
 $$
@@ -38,6 +39,7 @@ $$
 然而，TD 只需要等到下一个时间增量即可。
 
 TD(0)（单步TD）:
+
 $$
 V(S_t) \gets V(S_t) + \alpha \left[R_{t+1} + \gamma V(S_{t+1}) - V(S_t) \right]
 $$
@@ -116,7 +118,7 @@ $$
 \delta_t = R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)
 $$
 
-## Q-learning: Off-policy TD Control
+## 5. Q-learning: Off-policy TD Control
 
 早期的一项重大突破： Q-learning
 
@@ -130,7 +132,7 @@ Q-learning 会学习到比较好，但是更危险的策略，而 Sarsa 则相�
 
 但是如果 $\varepsilon$ 足够小的话，两者将接近。
 
-## Expected Sarsa
+## 6. Expected Sarsa
 
 $$
 \begin{aligned}
@@ -141,23 +143,23 @@ $$
 
 是一种 可on 可off-policy，除了一些微小的额外计算代价，Expected Sarsa 可能是比其他 TD control 算法都要好的算法。
 
-## Maximization Bias and Double Learning
+## 7. Maximization Bias and Double Learning
 
 正数偏倚：若一个值的最优是0，但是由于估计的时候有分布，因此，会有正有负，但是最大化估计会选择那些正数，导致最终结果称为正数。
 
 办法：分成两个玩家，单独学习。
 
-- $Q_1(a)$：学习 $A^*=\argmax_a Q_1(a)$
-- $Q_2(a)$：学习期望 $Q_2(A^*) = Q_2(\argmax_a Q_1(a))$
+- $Q_1(a)$：学习 $A^*=\arg\max_a Q_1(a)$
+- $Q_2(a)$：学习期望 $Q_2(A^*) = Q_2(\arg\max_a Q_1(a))$
 
-我们甚至可以交换他们的角色。$Q_1(\argmax_a Q_2(a))$
+我们甚至可以交换他们的角色。$Q_1(\arg\max_a Q_2(a))$
 
 这个称之为：Double Learning。
 
 应用在 Double Q-learning：投一枚硬币，若正面：
 
 $$
-Q_1(S_t,A_t) \gets Q_1(S_t,A_t) +  \alpha\left[R_{t+1} + \gamma Q_2(S_{t+1},\argmax_a Q_1(S_{t+1}, a)) - Q_1(S_t,A_t)\right]
+Q_1(S_t,A_t) \gets Q_1(S_t,A_t) +  \alpha\left[R_{t+1} + \gamma Q_2(S_{t+1},\arg\max_a Q_1(S_{t+1}, a)) - Q_1(S_t,A_t)\right]
 $$
 
 若反面，则交换 1 和 2。
@@ -174,7 +176,7 @@ $$
 Q_1(S_t,A_t) \gets Q_1(S_t,A_t) + \alpha\left[R_{t+1} + \gamma \sum_a \pi(a|S_{t+1})Q_2(S_{t+1},a) - Q_1(S_t,A_t)\right]
 $$
 
-## Games, Afterstates, and Other Special Cases
+## 8. Games, Afterstates, and Other Special Cases
 
 Afterstates，在轮流的博弈中，更为有效，可以合并一些空间。
 
