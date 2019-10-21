@@ -2,3 +2,4 @@
 *.sav
 *.pdf
 .vscode
+.DS_Store
